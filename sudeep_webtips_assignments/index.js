@@ -9,7 +9,7 @@ fetch("data.json")
     console.log(weather_data);
     setWeather();
     setWeathercard('sunny')
-    setInterval(change,1000);
+    // setInterval(change,1000);
   });
 })();  //IIFE 
 function setWeather() {
@@ -148,9 +148,7 @@ function change() {
     } else if (sixtemp[i] >= 18 && sixtemp[i] <= 22) {
       document.querySelector(`#icon-${i + 1}`).src =
         "HTML & CSS/Weather Icons/windyIcon.svg";
-    } else if (sixtemp[i] >= 18 && sixtemp[i] <= 22) {
-      document.querySelector(`#icon-${i + 1}`).src =
-        "HTML & CSS/Weather Icons/windyIcon.svg";
+    
     } else if (sixtemp[i] >= 23 && sixtemp[i] <= 29) {
       document.querySelector(`#icon-${i + 1}`).src =
         "HTML & CSS/Weather Icons/cloudyIcon.svg";
@@ -159,9 +157,6 @@ function change() {
         "HTML & CSS/Weather Icons/sunnyIcon.svg";
     }
   }
-
-
-
   //Hours changing with wrt to time.
   let hour = parseInt(time.split(":")[0]);
   let noon = time.split(" ")[1];
@@ -174,6 +169,7 @@ function change() {
       document.querySelector(`#time-${i + 1}`).innerHTML = "NOW";
     } else {
       document.querySelector(`#time-${i + 1}`).innerHTML = hour + " " + noon;
+
     }
     if (hour == 11 && noon == "PM") {
       noon = "AM";
@@ -192,6 +188,11 @@ var sortedsnowWeatherValues = [];
 var sortedRainyWeatherValues=[];
 
 //Task 2
+document.querySelector("#sunny").addEventListener("click", () => { setWeathercard("sunny");});
+document.querySelector("#snow").addEventListener("click", () => { setWeathercard("snow");});
+document.querySelector("#rainy").addEventListener("click", () => { setWeathercard("rainy");});
+document.querySelector("#displaynum").addEventListener("change",setMinMax);
+
 function sortCities(arr,constraint)
 {
   if(constraint=="temperature")
@@ -215,12 +216,7 @@ function sortCities(arr,constraint)
   return arr;
 };
 
-document.querySelector("#sunny").addEventListener("click", () => { setWeathercard("sunny");});
-document.querySelector("#snow").addEventListener("click", () => { setWeathercard("snow");});
-document.querySelector("#rainy").addEventListener("click", () => { setWeathercard("rainy");});
-
-
-//Display Top 
+//Display Top Caeds
 
 function display(arr){
   let card="";
@@ -323,8 +319,6 @@ function setWeathercard(weather){
     console.log(sortCities(sunnyWeather,"temperature"))
     //Display the city details in cards  
     let slicedSortedSunnyWeatherValues=setMinMax(); 
-
-
   }
   //SNOW Weather
   if(weather=='snow'){
@@ -359,49 +353,11 @@ function setWeathercard(weather){
   //Sort cities in descending order of humidity
   sortedRainyWeatherValues = sortCities(rainyWeather,"humidity");
   console.log(sortCities(rainyWeather,"humidity"));
-  let slicedsortedRainyWeatherValues=setMinMax(); 
-  //Display the city details in cards 
-    // function display(arr){
-    //   let card="";
-    //   for(let i = 0; i<arr.length; i++){
-    //     let time = new Date().toLocaleString("en-US", {
-    //       timeZone: arr[i].timeZone,
-    //       timeStyle: "medium",
-    //       hourCycle: "h12",
-    //     });
-    //     card += `<div class="mid">
-    //               <div class="mid-item">
-    //                 <div>${arr[i].cityName}</div>
-    //                 <div class="mid-img">
-    // //                   <img src="HTML & CSS/Weather Icons/rainyIcon.svg" alt="sunny" />
-    // //                   <span>${arr[i].temperature}</span>
-    // //                 </div>
-    // //               </div>
-    // //               <div>${time}</div>
-    // //               <div>
-    // //                 <img
-    // //                   src="HTML & CSS/Weather Icons/humidityIcon.svg"
-    // //                   alt="rainy"
-    // //                 />${arr[i].humidity}
-    // //               </div>
-    // //               <div>
-    // //                 <img src="HTML & CSS/Weather Icons/precipitationIcon.svg" 
-    // //                 />${arr[i].precipitation}
-    // //               </div>
-    // //             </div>`
-    //   }
-    //   document.querySelector(".middle-block").innerHTML = card;
-      //Change the background image for each city
-      document.querySelectorAll(".mid").forEach((element,i)=>{
-        element.style.backgroundImage =`url('./HTML & CSS/Icons for cities/${rainyWeather[i].cityName.toLowerCase()}.svg')`;
-      })
-    
-    // }
   
- 
-//   }
+  //Display the city details in cards 
+  let slicedsortedRainyWeatherValues=setMinMax();
  }
 
 
 }
-document.querySelector("#displaynum").addEventListener("change",setMinMax);
+
